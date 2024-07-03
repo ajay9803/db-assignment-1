@@ -33,15 +33,8 @@ INSERT INTO Orders (customer_name, product_id, quantity, order_date) VALUES
 
 UPDATE Products SET category = 'hardware' WHERE product_id = 1;
 
-
-
-SELECT p.category, SUM(o.quantity) AS total_quantity
-FROM Orders o
-JOIN Products p ON o.product_id = p.product_id
-GROUP BY p.category;
-
 select o.product_id, (select product_name from products where product_id = o.product_id), sum(quantity)
-from orders o group by product_id;
+from orders o group by product_id order by o.product_id;
 
 select * from products p 
 where product_id = (select product_id from orders group by product_id having sum(quantity) > 5)
